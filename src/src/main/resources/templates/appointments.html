@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Appointment Confirmation</title>
+</head>
+<body>
+<div align="center">
+    <h1>Appointments Confirmation System</h1>
+    <br/><br/>
+    <form action="#" th:action="@{/appointments}" method="post">
+        <label>Filter by Patient Name: </label>
+        <input type="text" name="filterTxt" id="filterTxt" placeholder="Name to Filter">
+        <button type="submit">Search</button>
+    </form>
+    <br/>
+    <table border="1" cellpadding="10">
+        <thead>
+        <tr>
+            <th>Appointment ID</th>
+            <th>Confirmed</th>
+            <th>Patient Name</th>
+            <th>Doctor Office Name</th>
+            <th>Doctor Name</th>
+            <th>Cost</th>
+            <th>Date</th>
+            <th>Service Type</th>
+            <th>Button to confirm</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="appointment: ${appointmentList}">
+            <td th:text="${appointment.id}" >Appointment ID</td>
+            <td th:text="${appointment.confirmed}">Confirmed</td>
+            <td th:text="${appointment.patient.fullName}">Patient Name</td>
+            <td th:text="${appointment.doctorOffice.name}">Doctor Office Name</td>
+            <td th:text="${appointment.doctor.name}">Doctor Name</td>
+            <td th:text="${#numbers.formatDecimal(appointment.totalCost,2,2,'COMMA')}">Total Cost</td>
+            <td th:text="${appointment.date}">Date</td>
+            <td th:text="${appointment.service}">Service Type</td>
+            <td><a th:href="@{/appointments/confirm(id=${appointment.id})}">Confirm</a></td>
+        </tr>
+        </tbody>
+    </table>
+    <p><a href="/appointments">Click Here</a> to return to Home Page</p>
+</div>
+
+</body>
+</html>
